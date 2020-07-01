@@ -17,11 +17,13 @@ export class HomePage {
   numberOfCards = 0;
   enaleStruct = false;
   testArray = [];
+  expression = false;
   createCards(cards: number) {
     for (let i = 1; i <= cards; i++) {
       this.numberOfFields.push(i);
     }
     this.enaleStruct = true;
+    this.expression = true;
   }
 
   message: string;
@@ -36,6 +38,10 @@ export class HomePage {
 
   resetAll(){
       this.numberOfFields = [];
+      this.expression = false;
+      this.enaleStruct = false;
+
+
   }
 
 

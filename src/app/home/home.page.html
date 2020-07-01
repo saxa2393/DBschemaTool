@@ -47,7 +47,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid >
+  <ion-grid *ngIf="expression">
     <ion-row>
       <ion-col *ngFor="let item of numberOfFields">
         <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
@@ -55,7 +55,7 @@
     </ion-row>
 
   </ion-grid>
-  <ion-button fill="clear">
+  <ion-button fill="clear" (click)="resetAll()">
     Confirm All
   </ion-button>
 </ion-content>
