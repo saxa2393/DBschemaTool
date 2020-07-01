@@ -1,27 +1,44 @@
-import { Component } from '@angular/core';
-
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { InformationCardComponent } from '../information-card/information-card.component'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  constructor() { }
 
-  constructor() {}
-
-  entry : string;
-  description : string;
-  objectForDB : Object;
-  allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM","STRUCT","LAT_LONG"];
-  dataType : string;
+  entry: string;
+  description: string;
+  objectForDB: Object;
+  allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM", "STRUCT", "LAT_LONG"];
+  dataType: string;
   numberOfFields = [];
-  numberOfCards  = 0;
-
-  createCards(cards : number){
-    for(let i=1;i<=cards;i++){
+  numberOfCards = 0;
+  enaleStruct = false;
+  testArray = [];
+  createCards(cards: number) {
+    for (let i = 1; i <= cards; i++) {
       this.numberOfFields.push(i);
     }
-    this.numberOfCards  = 0;
-    this.dataType = '';
+    this.enaleStruct = true;
   }
+
+  message: string;
+
+  receiveMessage($event) {
+    this.message = $event;
+    this.testArray.push(this.message);
+    console.log(this.testArray)
+  }
+
+
+
+  resetAll(){
+      this.numberOfFields = [];
+  }
+
+
+
+
 }

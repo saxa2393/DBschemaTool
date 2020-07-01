@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Schema DB
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,87 +9,53 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Schema DB</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-grid>
+    <ion-title strong>
+      LEVEL 1
+    </ion-title>
     <ion-item>
-      <ion-input  pattern="" placeholder="Entry" type="text" [(ngModel)]="entry">
-       
+      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry">
+
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-input  pattern="" placeholder="Description" type="text" [(ngModel)]="description">
-       
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input  pattern="" placeholder="" type="text" [(ngModel)]="entry">
-       
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input  pattern="" placeholder="" type="text" [(ngModel)]="entry">
-       
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input  pattern="" placeholder="" type="text" [(ngModel)]="entry">
-       
-      </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input  pattern="" placeholder="" type="text" [(ngModel)]="entry">
-       
+      <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description">
+
       </ion-input>
     </ion-item>
     <ion-item>
       <strong>
         <ion-label style="margin-top: 15px;">DATA TYPE</ion-label>
       </strong>
-      <ion-select   interface="popover" 
-      style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataType">
-        <ion-select-option  *ngFor="let type of allTypes" [value]="type" >{{type}}
+      <ion-select interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataType">
+        <ion-select-option *ngFor="let type of allTypes" [value]="type">{{type}}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-row *ngIf="dataType==='STRUCT'">
       <ion-item>
-        <ion-input  placeholder="number of fields" type="number" [(ngModel)]="numberOfCards">
+        <ion-input placeholder="1" type="number" min="1" [(ngModel)]="numberOfCards">
         </ion-input>
-        <ion-button (click)="createCards(numberOfCards)">
+        <ion-button [disabled]="enaleStruct" (click)="createCards(numberOfCards)">
           OK
         </ion-button>
       </ion-item>
     </ion-row>
   </ion-grid>
-  <ion-card *ngFor="let item of numberOfFields">
-    <ion-item>
-      <strong>
-        <ion-label style="margin-top: 15px;">DATA TYPE</ion-label>
-      </strong>
-      <ion-select   interface="popover" 
-      style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataType">
-        <ion-select-option  *ngFor="let type of allTypes" [value]="type" >{{type}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-row *ngIf="dataType==='STRUCT'">
-      <ion-item>
-        <ion-input  placeholder="number of fields" type="number" [(ngModel)]="numberOfCards">
-        </ion-input>
-        <ion-button (click)="createCards(numberOfCards)">
-          OK
-        </ion-button>
-      </ion-item>
-    </ion-row>
-  </ion-card>
-  <ion-label >
-    Activate
-  </ion-label>
-  <ion-toggle>
-    
-  </ion-toggle>
 
+  <ion-grid >
+    <ion-row>
+      <ion-col *ngFor="let item of numberOfFields">
+        <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <ion-button fill="clear">
+    Confirm All
+  </ion-button>
 </ion-content>
