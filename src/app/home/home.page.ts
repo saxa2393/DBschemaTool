@@ -19,6 +19,15 @@ export class HomePage {
   myStruct = [];
   expression = false;
   confirmAllButton = true;
+  isChecked = false;
+  requiredButton() {
+    if (this.isChecked) {
+      this.isChecked = false;
+    }
+    else {
+      this.isChecked = true;
+    }
+  }
 
   enableButton() {
     if (this.dataTypeIndex === -1 || this.description === '' || this.entry === '') {
@@ -58,20 +67,25 @@ export class HomePage {
         name: this.entry,
         description: this.description,
         dataType: this.dataTypeIndex,
-        data: this.myStruct
+        required: this.isChecked,
+        structProperties: this.myStruct
 
       }
+      console.log(this.newStruct);
+
     }
     else {
       this.newStruct = {
         name: this.entry,
         description: this.description,
         dataType: this.dataTypeIndex,
-        data: this.myStruct
+        required: this.isChecked,
+        structProperties: this.myStruct
 
       }
+      console.log(this.newStruct);
+
     }
-    // console.log(this.newStruct);
     this.allTypes.push(this.newStruct.name);
     this.entry = '';
     this.description = '';

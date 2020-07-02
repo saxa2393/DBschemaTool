@@ -27,10 +27,20 @@ export class InformationCardComponent implements OnInit {
     let x ={
       name:temp,
       description:temp1,
-      dataType:temp2
+      dataType:temp2,
+      required:this.isChecked
     }
     this.messageEvent.emit(x);
     this.confirmButton = true;
+  }
+  isChecked = false;
+  requiredButton() {
+    if (this.isChecked) {
+      this.isChecked = false;
+    }
+    else {
+      this.isChecked = true;
+    }
   }
   createCards(cards: number) {
     for (let i = 1; i <= cards; i++) {

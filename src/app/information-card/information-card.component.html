@@ -20,6 +20,13 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label>
+        Required
+      </ion-label>
+      <ion-checkbox (click)="requiredButton()"></ion-checkbox>
+
+    </ion-item>
     <ion-row *ngIf="dataTypeIndex===6">
       <ion-item>
         <ion-input placeholder="number of fields" type="number" [(ngModel)]="numberOfCards">
@@ -28,6 +35,7 @@
           OK
         </ion-button>
       </ion-item>
+     
     </ion-row>
     <ion-row>
       <ion-button [disabled]="confirmButton" fill="clear" (click)="pushData(entry,description,dataTypeIndex)">
