@@ -1,7 +1,5 @@
 <ion-grid>
-  <ion-title strong>
-    LEVEL 2
-  </ion-title>
+  
   <ion-card mycard>
     <ion-item>
       <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry">
@@ -17,12 +15,12 @@
       <strong>
         <ion-label style="margin-top: 15px;">DATA TYPE</ion-label>
       </strong>
-      <ion-select interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataType">
-        <ion-select-option *ngFor="let type of allTypes" [value]="type">{{type}}
+      <ion-select interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataTypeIndex">
+        <ion-select-option *ngFor="let type of allTypes; let i = index"  [value]="i">{{type}}
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-row *ngIf="dataType==='STRUCT'">
+    <ion-row *ngIf="dataTypeIndex===6">
       <ion-item>
         <ion-input placeholder="number of fields" type="number" [(ngModel)]="numberOfCards">
         </ion-input>
@@ -32,7 +30,7 @@
       </ion-item>
     </ion-row>
     <ion-row>
-      <ion-button [disabled]="confirmButton" fill="clear" (click)="pushData(entry,description,dataType)">
+      <ion-button [disabled]="confirmButton" fill="clear" (click)="pushData(entry,description,dataTypeIndex)">
         <ion-icon name="checkmark-done-sharp"></ion-icon>
         Confirm Entry
       </ion-button>

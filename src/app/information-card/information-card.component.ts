@@ -17,14 +17,18 @@ export class InformationCardComponent implements OnInit {
   description: string;
   objectForDB: Object;
   allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM", "STRUCT", "LAT_LONG"];
-  dataType: string;
+  dataTypeIndex: number =-1;
   numberOfFields = [];
   numberOfCards = 0;
   myArray = [];
   confirmButton = false;
-  @Output() messageEvent = new EventEmitter<string>();
-  pushData(temp: string, temp1: string, temp2: string) {
-    let x = [temp, temp1, temp2]
+  @Output() messageEvent = new EventEmitter();
+  pushData(temp: string, temp1: string, temp2: number) {
+    let x ={
+      name:temp,
+      description:temp1,
+      dataType:temp2
+    }
     this.messageEvent.emit(x);
     this.confirmButton = true;
   }
@@ -33,6 +37,6 @@ export class InformationCardComponent implements OnInit {
       this.numberOfFields.push(i);
     }
     this.numberOfCards = 0;
-    this.dataType = '';
+    this.dataTypeIndex = -1;
   }
 }

@@ -15,15 +15,15 @@
 
   <ion-grid>
     <ion-title strong>
-      LEVEL 1
+      Schema
     </ion-title>
     <ion-item>
-      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry">
+      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry" (ngModelChange)="enableButton()">
 
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description">
+      <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description" (ngModelChange)="enableButton()">
 
       </ion-input>
     </ion-item>
@@ -31,12 +31,12 @@
       <strong>
         <ion-label style="margin-top: 15px;">DATA TYPE</ion-label>
       </strong>
-      <ion-select interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataType">
-        <ion-select-option *ngFor="let type of allTypes" [value]="type">{{type}}
+      <ion-select  interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataTypeIndex" (ngModelChange)="enableButton()">
+        <ion-select-option *ngFor="let type of allTypes; let i = index"  [value]="i" >{{type}}
         </ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-row *ngIf="dataType==='STRUCT'">
+    <ion-row *ngIf="dataTypeIndex===6">
       <ion-item>
         <ion-input placeholder="1" type="number" min="1" [(ngModel)]="numberOfCards">
         </ion-input>
@@ -55,7 +55,7 @@
     </ion-row>
 
   </ion-grid>
-  <ion-button fill="clear" (click)="resetAll()">
+  <ion-button fill="clear" (click)="confirmAll()" [disabled]='confirmAllButton'>
     Confirm All
   </ion-button>
 </ion-content>
