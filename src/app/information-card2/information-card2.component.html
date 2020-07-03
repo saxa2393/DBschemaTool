@@ -36,30 +36,16 @@
       <ion-checkbox (click)="requiredButton()"></ion-checkbox>
 
     </ion-item>
-    <ion-row>
-      <ion-col [hidden]="showAddButton" size="1">
-        <ion-button (click)="addCol()">
-          <ion-icon name="add-outline"></ion-icon>
+    <ion-row *ngIf="dataTypeIndex===6">
+      <ion-item>
+        <ion-input placeholder="number of fields" type="number" [(ngModel)]="numberOfCards">
+        </ion-input>
+        <ion-button (click)="createCards(numberOfCards)">
+          OK
         </ion-button>
-      </ion-col>
-      <!-- <ion-col [hidden]="confirmButton" size="1">
-        <ion-button (click)="removeCol()">
-          <ion-icon name="remove-sharp"></ion-icon>
-        </ion-button>
-      </ion-col> -->
-    </ion-row>
-    <ion-row *ngIf="(dataTypeIndex===6||dataTypeIndex>7)">
-      <ion-col>
-        <app-information-card ></app-information-card>
-     
-      </ion-col>
+      </ion-item>
 
-      <div *ngFor="let item of addField">
-        <!-- (messageEvent)="receiveMessage($event)" -->
-        <app-information-card [step]="entry" ></app-information-card>
-      </div>
     </ion-row>
-    
     <ion-row>
       <ion-button [disabled]="confirmButton" fill="clear" (click)="pushData(entry,description,dataTypeIndex)">
         <ion-icon name="checkmark-done-sharp"></ion-icon>

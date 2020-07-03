@@ -45,43 +45,43 @@
       <ion-checkbox (click)="requiredButton()"></ion-checkbox>
 
     </ion-item>
-    <ion-row *ngIf="dataTypeIndex===6">
-      <div>
-        <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
-        <!-- <ion-input placeholder="1" type="number" min="1" [(ngModel)]="numberOfCards">
-        </ion-input>
-        <ion-button [disabled]="enaleStruct" (click)="createCards(numberOfCards)">
-          OK
-        </ion-button> -->
-      </div>
-
-      <div *ngFor="let item of addField">
-        <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
-      </div>
-    </ion-row>
     <ion-row>
-      <ion-col size="1">
+      <ion-col [hidden]="confirmAllButton" size="1">
         <ion-button (click)="addCol()">
           <ion-icon name="add-outline"></ion-icon>
         </ion-button>
       </ion-col>
-      <ion-col size="1">
+      <ion-col [hidden]="confirmAllButton" size="1">
         <ion-button (click)="removeCol()">
           <ion-icon name="remove-sharp"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="(dataTypeIndex===6||dataTypeIndex>7)&&!confirmAllButton">
+      <ion-col>
+        <app-information-card [step]="entry" (messageEvent)="receiveMessage($event)"></app-information-card>
+     
+      </ion-col>
+
+      <ion-col *ngFor="let item of addField">
+        <app-information-card [step]="entry" (messageEvent)="receiveMessage($event)"></app-information-card>
+      </ion-col>
+    </ion-row>
+  
   </ion-card>
 
-  <ion-grid *ngIf="expression">
+  <!-- <ion-grid *ngIf="expression">
     <ion-row>
       <ion-col *ngFor="let item of numberOfFields">
         <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
       </ion-col>
     </ion-row>
 
-  </ion-grid>
+  </ion-grid> -->
   <ion-button fill="clear" (click)="confirmAll()" [disabled]='confirmAllButton'>
     Confirm All
   </ion-button>
+  <ion-card>
+    
+  </ion-card>
 </ion-content>

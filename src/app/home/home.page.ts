@@ -1,5 +1,4 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { InformationCardComponent } from '../information-card/information-card.component'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -13,11 +12,9 @@ export class HomePage {
   objectForDB: Object;
   allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM", "STRUCT", "LAT_LONG"];
   dataTypeIndex: number = -1;
-  numberOfFields = [];
   numberOfCards = 0;
   enaleStruct = false;
   myStruct = [];
-  expression = false;
   confirmAllButton = true;
   isChecked = false;
   requiredButton() {
@@ -50,13 +47,6 @@ export class HomePage {
     }
   }
 
-  createCards(cards: number) {
-    for (let i = 1; i <= cards; i++) {
-      this.numberOfFields.push(i);
-    }
-    this.enaleStruct = true;
-    this.expression = true;
-  }
 
   message: string;
 
@@ -70,7 +60,7 @@ export class HomePage {
   newStruct;
   confirmAll() {
 
-    if (this.dataTypeIndex > 7) {
+    if (this.dataTypeIndex === 6||this.dataTypeIndex > 7) {
       this.dataTypeIndex = 6;
       this.newStruct = {
         name: this.entry,
@@ -81,6 +71,7 @@ export class HomePage {
 
       }
       console.log(this.newStruct);
+      this.allTypes.push(this.newStruct.name);
 
     }
     else {
@@ -95,14 +86,11 @@ export class HomePage {
       console.log(this.newStruct);
 
     }
-    this.allTypes.push(this.newStruct.name);
     this.entry = '';
     this.description = '';
     this.dataTypeIndex = -1;
     this.confirmAllButton = true;
 
-    this.numberOfFields = [];
-    this.expression = false;
     this.enaleStruct = false;
 
     this.numberOfCards = 0;

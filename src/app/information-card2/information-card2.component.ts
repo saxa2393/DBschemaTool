@@ -1,29 +1,17 @@
-import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-// import { EventEmitter } from 'protractor';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-information-card',
-  templateUrl: './information-card.component.html',
-  styleUrls: ['./information-card.component.scss'],
+  selector: 'app-information-card2',
+  templateUrl: './information-card2.component.html',
+  styleUrls: ['./information-card2.component.scss'],
 })
+export class InformationCard2Component implements OnInit {
 
-export class InformationCardComponent implements OnInit {
-
+  
   @ViewChild('mycard', { static: false }) cardElement;
   @Input() step:string;
   constructor() { }
   header : string;
-
-  
-  addField =[];
-  addCol(){
-    this.addField.push(1);
-
-  }
-  removeCol(){
-    this.addField.pop();
-
-  }
   ngOnInit() { 
     this.header = this.step;
      console.log(this.header)
@@ -37,8 +25,6 @@ export class InformationCardComponent implements OnInit {
   numberOfCards = 0;
   myArray = [];
   confirmButton = true;
-  showAddButton = true;
-
   disableCard = false;
 
   @Output() messageEvent = new EventEmitter();
@@ -48,9 +34,7 @@ export class InformationCardComponent implements OnInit {
       this.confirmButton = true;
 
     } else {
-      if (this.dataTypeIndex === 6) {
-        this.showAddButton=false;
-      }
+
       this.confirmButton = false;
 
     }
