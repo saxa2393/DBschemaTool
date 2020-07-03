@@ -29,6 +29,15 @@ export class HomePage {
     }
   }
 
+  addField =[];
+  addCol(){
+    this.addField.push(1);
+
+  }
+  removeCol(){
+    this.addField.pop();
+
+  }
   enableButton() {
     if (this.dataTypeIndex === -1 || this.description === '' || this.entry === '') {
 

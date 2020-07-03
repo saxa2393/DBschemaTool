@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Schema DB
+      Schema Creation Tool
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,14 +9,14 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Schema DB</ion-title>
+      <ion-title size="large">Schema Creation Tool</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid>
-    <ion-title strong>
-      Schema
-    </ion-title>
+  <ion-card >
+    <ion-card-header>
+      Schema Creation Tool
+    </ion-card-header>
     <ion-item>
       <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry" (ngModelChange)="enableButton()">
 
@@ -46,17 +46,32 @@
 
     </ion-item>
     <ion-row *ngIf="dataTypeIndex===6">
-      <ion-item>
+      <div>
         <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
-
         <!-- <ion-input placeholder="1" type="number" min="1" [(ngModel)]="numberOfCards">
         </ion-input>
         <ion-button [disabled]="enaleStruct" (click)="createCards(numberOfCards)">
           OK
         </ion-button> -->
-      </ion-item>
+      </div>
+
+      <div *ngFor="let item of addField">
+        <app-information-card (messageEvent)="receiveMessage($event)"></app-information-card>
+      </div>
     </ion-row>
-  </ion-grid>
+    <ion-row>
+      <ion-col size="1">
+        <ion-button (click)="addCol()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="1">
+        <ion-button (click)="removeCol()">
+          <ion-icon name="remove-sharp"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
   <ion-grid *ngIf="expression">
     <ion-row>
