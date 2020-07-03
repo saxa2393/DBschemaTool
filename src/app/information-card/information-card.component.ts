@@ -10,47 +10,55 @@ import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitte
 export class InformationCardComponent implements OnInit {
 
   @ViewChild('mycard', { static: false }) cardElement;
-  @Input() step:string;
-  constructor() { }
-  header : string;
+  @Input() step: string;
+  @Input() step1: string;
 
-  
-  addField =[];
-  addCol(){
+  constructor() { }
+  header: string;
+
+
+  addField = [];
+  addCol() {
     this.addField.push(1);
 
   }
-  removeCol(){
+  removeCol() {
     this.addField.pop();
 
   }
-  ngOnInit() { 
+  ngOnInit() {
     this.header = this.step;
-     console.log(this.header)
   }
-  entry: string;
-  description: string;
+  entry1: string='';
+  description1: string='';
   objectForDB: Object;
   allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM", "STRUCT", "LAT_LONG"];
-  dataTypeIndex: number = -1;
+  dataTypeIndex1: number = -1;
   numberOfFields = [];
   numberOfCards = 0;
   myArray = [];
   confirmButton = true;
   showAddButton = true;
+  enableStruct = false;
 
   disableCard = false;
 
   @Output() messageEvent = new EventEmitter();
   enableButton() {
-    if (this.dataTypeIndex === -1 || this.description === '' || this.entry === '') {
+    if (this.dataTypeIndex1 === -1 || this.description1 === '' || this.entry1 === '') {
 
       this.confirmButton = true;
-
+      console.log(this.enableStruct + "1")
     } else {
-      if (this.dataTypeIndex === 6) {
-        this.showAddButton=false;
+      if (this.dataTypeIndex1 === 6) {
+        this.showAddButton = false;
+        this.enableStruct = true;
+        console.log(this.enableStruct + "2")
+
+
       }
+      console.log(this.enableStruct + "3")
+
       this.confirmButton = false;
 
     }
@@ -82,6 +90,6 @@ export class InformationCardComponent implements OnInit {
       this.numberOfFields.push(i);
     }
     this.numberOfCards = 0;
-    this.dataTypeIndex = -1;
+    this.dataTypeIndex1 = -1;
   }
 }
