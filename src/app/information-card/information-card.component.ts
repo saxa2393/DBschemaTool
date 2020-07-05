@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-// import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-information-card',
@@ -13,7 +12,16 @@ export class InformationCardComponent implements OnInit {
   @Input() step: string;
   @Input() step1: string;
 
-  constructor() { }
+  constructor() {
+    interface User {
+      name: string;
+      id: number;
+    }
+    const user: User = {
+      name: "Hayes",
+      id: 0,
+    };
+  }
   header: string;
 
 
@@ -29,8 +37,9 @@ export class InformationCardComponent implements OnInit {
   ngOnInit() {
     this.header = this.step;
   }
-  entry1: string='';
-  description1: string='';
+
+  entry1: string = '';
+  description1: string = '';
   objectForDB: Object;
   allTypes = ["UNSET_DATA_TYPE", "BYTES", "BOOLEAN", "NUMBER", "STRING", "ENUM", "STRUCT", "LAT_LONG"];
   dataTypeIndex1: number = -1;
@@ -42,9 +51,9 @@ export class InformationCardComponent implements OnInit {
   enableStruct = false;
 
   disableCard = false;
-
   @Output() messageEvent = new EventEmitter();
   enableButton() {
+
     if (this.dataTypeIndex1 === -1 || this.description1 === '' || this.entry1 === '') {
 
       this.confirmButton = true;
