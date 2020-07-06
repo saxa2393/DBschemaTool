@@ -17,13 +17,14 @@
     <ion-card-header>
       Schema Creation Tool
     </ion-card-header>
+   
     <ion-item>
-      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry" (ngModelChange)="enableButton()">
+      <ion-input [disabled]="enaleStruct" pattern="" placeholder="Name" type="text" [(ngModel)]="entry" (ngModelChange)="enableButton()">
 
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description"
+      <ion-input [disabled]="enaleStruct" pattern="" placeholder="Description" type="text" [(ngModel)]="description"
         (ngModelChange)="enableButton()">
 
       </ion-input>
@@ -32,7 +33,7 @@
       <strong>
         <ion-label style="margin-top: 15px;">DATA TYPE</ion-label>
       </strong>
-      <ion-select interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataTypeIndex"
+      <ion-select [disabled]="enaleStruct" interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataTypeIndex"
         (ngModelChange)="enableButton()">
         <ion-select-option *ngFor="let type of allTypes; let i = index" [value]="i">{{type}}
         </ion-select-option>
@@ -42,29 +43,29 @@
       <ion-label>
         Required
       </ion-label>
-      <ion-checkbox (click)="requiredButton()"></ion-checkbox>
+      <ion-checkbox [disabled]="enaleStruct" (click)="requiredButton()"></ion-checkbox>
 
     </ion-item>
     <ion-row>
-      <ion-col [hidden]="confirmAllButton" size="1">
+      <ion-col [hidden]="!confirmAllButton" size="1">
         <ion-button (click)="addCol()">
           <ion-icon name="add-outline"></ion-icon>
         </ion-button>
       </ion-col>
-      <ion-col [hidden]="confirmAllButton" size="1">
+      <ion-col [hidden]="!confirmAllButton" size="1">
         <ion-button (click)="removeCol()">
           <ion-icon name="remove-sharp"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="(dataTypeIndex===6||dataTypeIndex>7)&&!confirmAllButton">
+    <ion-row *ngIf="enaleStruct">
       <ion-col>
-        <app-information-card [step]="entry" (messageEvent)="receiveMessage($event)"></app-information-card>
+        <app-information-card  (messageEvent)="receiveMessage($event)"></app-information-card>
      
       </ion-col>
 
       <ion-col *ngFor="let item of addField">
-        <app-information-card [step]="entry" (messageEvent)="receiveMessage($event)"></app-information-card>
+        <app-information-card  (messageEvent)="receiveMessage($event)"></app-information-card>
       </ion-col>
     </ion-row>
   
@@ -79,7 +80,7 @@
 
   </ion-grid> -->
   <ion-button fill="clear" (click)="confirmAll()" [disabled]='confirmAllButton'>
-    Confirm All
+    Confirm First
   </ion-button>
   <ion-card>
     

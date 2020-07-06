@@ -1,3 +1,4 @@
+import { InfoService } from './../services/info.service';
 import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -9,20 +10,20 @@ import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitte
 export class InformationCardComponent implements OnInit {
 
   @ViewChild('mycard', { static: false }) cardElement;
-  @Input() step: string;
-  @Input() step1: string;
+  // @Input() step: number;
+  @Input() step1: number;
+  header1:number = 2;
 
-  constructor() {
-    interface User {
-      name: string;
-      id: number;
-    }
-    const user: User = {
-      name: "Hayes",
-      id: 0,
-    };
+  testArray = [];
+  constructor(public infoExchange : InfoService) {
+   
   }
-  header: string;
+
+  showProgress(){
+    console.log(this.infoExchange.getData());
+
+  }
+  header: number;
 
 
   addField = [];
@@ -35,7 +36,8 @@ export class InformationCardComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.header = this.step;
+    this.header= this.infoExchange.increaseLevel()
+
   }
 
   entry1: string = '';
@@ -57,22 +59,64 @@ export class InformationCardComponent implements OnInit {
     if (this.dataTypeIndex1 === -1 || this.description1 === '' || this.entry1 === '') {
 
       this.confirmButton = true;
-      console.log(this.enableStruct + "1")
     } else {
       if (this.dataTypeIndex1 === 6) {
         this.showAddButton = false;
-        this.enableStruct = true;
-        console.log(this.enableStruct + "2")
-
-
       }
-      console.log(this.enableStruct + "3")
 
       this.confirmButton = false;
 
     }
   }
+  myStruct = [];
+  newStruct;
+  enaleStruct = false;
+  confirmAll(temp: string, temp1: string, temp2: number) {
+    let x = {
+      name: temp,
+      description: temp1,
+      dataType: temp2,
+      required: this.isChecked
+    }
+    this.messageEvent.emit(x);
+    this.infoExchange.receiveDataFromComponent(x);
 
+    this.disableCard = true;
+
+    if (this.dataTypeIndex1 === 6||this.dataTypeIndex1 > 7) {
+      this.dataTypeIndex1 = 6;
+      this.newStruct = {
+        name: this.entry1,
+        description: this.description1,
+        dataType: this.dataTypeIndex1,
+        required: this.isChecked,
+        structProperties: this.myStruct
+
+      }
+      console.log(this.newStruct);
+      this.allTypes.push(this.newStruct.name);
+      this.enableStruct = true;
+
+    }
+    else {
+      this.newStruct = {
+        name: this.entry1,
+        description: this.description1,
+        dataType: this.dataTypeIndex1,
+        required: this.isChecked,
+        structProperties: this.myStruct
+
+      }
+      console.log(this.newStruct);
+
+    }
+    
+    this.confirmButton = true;
+  
+    this.numberOfCards = 0;
+
+  }
+ 
   pushData(temp: string, temp1: string, temp2: number) {
     let x = {
       name: temp,
@@ -81,9 +125,11 @@ export class InformationCardComponent implements OnInit {
       required: this.isChecked
     }
     this.messageEvent.emit(x);
+    this.infoExchange.receiveDataFromComponent(x);
+
     this.confirmButton = true;
     this.disableCard = true;
-
+    
   }
   isChecked = false;
   requiredButton() {

@@ -15,6 +15,7 @@ export class HomePage {
   numberOfCards = 0;
   enaleStruct = false;
   myStruct = [];
+
   confirmAllButton = true;
   isChecked = false;
   requiredButton() {
@@ -26,12 +27,12 @@ export class HomePage {
     }
   }
 
-  addField =[];
-  addCol(){
+  addField = [];
+  addCol() {
     this.addField.push(1);
 
   }
-  removeCol(){
+  removeCol() {
     this.addField.pop();
 
   }
@@ -60,7 +61,7 @@ export class HomePage {
   newStruct;
   confirmAll() {
 
-    if (this.dataTypeIndex === 6||this.dataTypeIndex > 7) {
+    if (this.dataTypeIndex === 6 || this.dataTypeIndex > 7) {
       this.dataTypeIndex = 6;
       this.newStruct = {
         name: this.entry,
@@ -72,6 +73,7 @@ export class HomePage {
       }
       console.log(this.newStruct);
       this.allTypes.push(this.newStruct.name);
+      this.enaleStruct = true;
 
     }
     else {
@@ -84,14 +86,12 @@ export class HomePage {
 
       }
       console.log(this.newStruct);
-
+      this.entry = '';
+      this.description = '';
+      this.dataTypeIndex = -1;
     }
-    this.entry = '';
-    this.description = '';
-    this.dataTypeIndex = -1;
-    this.confirmAllButton = true;
 
-    this.enaleStruct = false;
+    this.confirmAllButton = true;
 
     this.numberOfCards = 0;
 
