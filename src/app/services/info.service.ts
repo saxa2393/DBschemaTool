@@ -12,12 +12,16 @@ export class InfoService {
     this.componentData.push(set);
   }
 
-  getData() {
-    return this.componentData;
+  getData(id : string) {
+    return this.componentData[0].title;
   }
 
   myLevel = 2;
   increaseLevel(){
    return this.myLevel++;
+  }
+  
+  increaseColNumber(temp : number){
+
   }
 }

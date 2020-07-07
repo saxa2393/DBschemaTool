@@ -1,5 +1,5 @@
 import { InfoService } from './../services/info.service';
-import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-information-card',
@@ -7,38 +7,70 @@ import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitte
   styleUrls: ['./information-card.component.scss'],
 })
 
-export class InformationCardComponent implements OnInit {
+export class InformationCardComponent implements OnInit,AfterViewInit {
 
-  @ViewChild('mycard', { static: false }) cardElement;
-  // @Input() step: number;
-  @Input() step1: number;
-  header1:number = 2;
+  @ViewChild(InformationCardComponent, {static: false}) hello: InformationCardComponent;
+
+  @Input() initialStep : number;
+  @Input() step1: string;
+  @Input() step: number;
+  
+  @Input() headerToPass: number;
+  // @Input() step2: number;
 
   testArray = [];
-  constructor(public infoExchange : InfoService) {
-   
+  constructor(public infoExchange : InfoService,elementRef:ElementRef) {
+    elementRef.nativeElement.parentElement
+  }
+  incrementHeader=0;
+  ngAfterViewInit(): void {
+    var input = document.getElementById('myheader');
+    this.incrementHeader = Number(input);
+    // console.log(this.card)
   }
 
-  showProgress(){
-    console.log(this.infoExchange.getData());
 
-  }
-  header: number;
+  header:string;
 
 
-  addField = [];
+  addField = [1];
   addCol() {
-    this.addField.push(1);
-
+    console.log(this.addField)
+    let x = this.addField.length;
+    let y =this.addField[x-1]+1;
+    this.addField.push(y);
+    
   }
   removeCol() {
     this.addField.pop();
 
   }
+  myKey:string;
   ngOnInit() {
-    this.header= this.infoExchange.increaseLevel()
+    if(this.headerToPass){
+      this.header = String(this.headerToPass);
+    }
+    else{
+      this.header = this.step1+"." +String(this.step);
+     
+
+    }
+  
+   
+
+    this.myKey = String(this.step1) +'.'+ String(this.step);
+    
+    this.newStruct = {
+      title:this.myKey,
+      name: '',
+      description: '',
+      dataType: '',
+      required: '',
+      structProperties: ''
+    }
 
   }
+
 
   entry1: string = '';
   description1: string = '';
@@ -68,38 +100,31 @@ export class InformationCardComponent implements OnInit {
 
     }
   }
+  
   myStruct = [];
   newStruct;
   enaleStruct = false;
-  confirmAll(temp: string, temp1: string, temp2: number) {
-    let x = {
-      name: temp,
-      description: temp1,
-      dataType: temp2,
-      required: this.isChecked
-    }
-    this.messageEvent.emit(x);
-    this.infoExchange.receiveDataFromComponent(x);
-
-    this.disableCard = true;
-
+  confirmAll() {
+    
     if (this.dataTypeIndex1 === 6||this.dataTypeIndex1 > 7) {
       this.dataTypeIndex1 = 6;
       this.newStruct = {
+        title:this.myKey,
         name: this.entry1,
         description: this.description1,
         dataType: this.dataTypeIndex1,
         required: this.isChecked,
         structProperties: this.myStruct
 
-      }
+      }      
+      this.infoExchange.receiveDataFromComponent(this.newStruct);
       console.log(this.newStruct);
-      this.allTypes.push(this.newStruct.name);
       this.enableStruct = true;
 
     }
     else {
       this.newStruct = {
+        title:this.myKey,
         name: this.entry1,
         description: this.description1,
         dataType: this.dataTypeIndex1,
@@ -108,29 +133,15 @@ export class InformationCardComponent implements OnInit {
 
       }
       console.log(this.newStruct);
+      this.infoExchange.receiveDataFromComponent(this.newStruct);
 
     }
-    
+    this.disableCard = true;
     this.confirmButton = true;
-  
     this.numberOfCards = 0;
 
   }
  
-  pushData(temp: string, temp1: string, temp2: number) {
-    let x = {
-      name: temp,
-      description: temp1,
-      dataType: temp2,
-      required: this.isChecked
-    }
-    this.messageEvent.emit(x);
-    this.infoExchange.receiveDataFromComponent(x);
-
-    this.confirmButton = true;
-    this.disableCard = true;
-    
-  }
   isChecked = false;
   requiredButton() {
     if (this.isChecked) {
@@ -140,6 +151,7 @@ export class InformationCardComponent implements OnInit {
       this.isChecked = true;
     }
   }
+
   createCards(cards: number) {
     for (let i = 1; i <= cards; i++) {
       this.numberOfFields.push(i);
@@ -147,4 +159,5 @@ export class InformationCardComponent implements OnInit {
     this.numberOfCards = 0;
     this.dataTypeIndex1 = -1;
   }
+
 }

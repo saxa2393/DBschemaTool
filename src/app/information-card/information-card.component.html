@@ -1,15 +1,16 @@
 <ion-grid>
 
-  <ion-card mycard >
+  <ion-card mycard>
     <ion-item>
-      <ion-label >
+      <ion-label id="mycard">
         <strong>
-        Level : {{header}}
-      </strong>
+          Struct : {{header }}
+        </strong>
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry1" (ngModelChange)="enableButton()" [disabled]="disableCard">
+      <ion-input pattern="" placeholder="Name" type="text" [(ngModel)]="entry1" (ngModelChange)="enableButton()"
+        [disabled]="disableCard">
 
       </ion-input>
     </ion-item>
@@ -26,8 +27,8 @@
       <strong>
         <ion-label style="margin-top: 15px;">Data Type</ion-label>
       </strong>
-      <ion-select [disabled]="disableCard" interface="popover" style="margin-top: 10px;" placeholder="All" [(ngModel)]="dataTypeIndex1"
-        (ngModelChange)="enableButton()">
+      <ion-select [disabled]="disableCard" interface="popover" style="margin-top: 10px;" placeholder="All"
+        [(ngModel)]="dataTypeIndex1" (ngModelChange)="enableButton()">
         <ion-select-option *ngFor="let type of allTypes; let i = index" [value]="i">{{type}}
         </ion-select-option>
       </ion-select>
@@ -40,33 +41,25 @@
 
     </ion-item>
     <ion-row>
-      <ion-col [hidden]="showAddButton" size="1">
+      <ion-col [hidden]="!enableStruct" size="1">
         <ion-button (click)="addCol()">
           <ion-icon name="add-outline"></ion-icon>
         </ion-button>
-      </ion-col>
-      <ion-col [hidden]="confirmButton" size="1">
+
         <ion-button (click)="removeCol()">
           <ion-icon name="remove-sharp"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="enableStruct">
-      <ion-col  >
-        <app-information-card ></app-information-card>
-     
-      </ion-col>
-
-      <div *ngFor="let item of addField">
-        <!-- (messageEvent)="receiveMessage($event)" -->
-        <app-information-card ></app-information-card>
+      <div *ngFor="let item of addField;let i = index">
+        <app-information-card [step1]="header" [step]="i +1"></app-information-card>
       </div>
     </ion-row>
-    <!-- pushData(entry1,description1,dataTypeIndex1) -->
     <ion-row>
-      <ion-button [disabled]="confirmButton" fill="clear" (click)="confirmAll()">
+      <ion-button [disabled]="confirmButton" fill="clear" (click)="confirmAll(step1)">
         <ion-icon name="checkmark-done-sharp"></ion-icon>
-        Confirm 
+        Confirm
       </ion-button>
     </ion-row>
   </ion-card>
