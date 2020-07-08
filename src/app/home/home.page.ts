@@ -8,5 +8,6 @@ import { InfoService } from './../services/info.service';
 })
 export class HomePage {
   constructor() { }
-
+  schemaName: string;
+  description: string;
 }

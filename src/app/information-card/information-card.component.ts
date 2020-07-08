@@ -26,9 +26,22 @@ export class InformationCardComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     var input = document.getElementById('myheader');
     this.incrementHeader = Number(input);
-    // console.log(this.card)
   }
 
+  buttonToShow = "Hide";
+  hiddenButton = false;
+  hiddenShowButton(){
+    if(this.hiddenButton){
+      this.hiddenButton = false;
+      this.buttonToShow = "Hide";
+
+    }
+    else{
+      this.hiddenButton = true;
+      this.buttonToShow = "Show";
+
+    }
+  }
 
   header:string;
 
