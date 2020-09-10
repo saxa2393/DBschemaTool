@@ -5,13 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import {InformationCardComponent} from '../information-card/information-card.component'
+import {InformationCardComponent} from '../information-card/information-card.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    MatExpansionModule
   ],
   declarations: [HomePage,InformationCardComponent]
 })

@@ -1,6 +1,5 @@
 import { InfoService } from './../services/info.service';
 import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
-
 @Component({
   selector: 'app-information-card',
   templateUrl: './information-card.component.html',
