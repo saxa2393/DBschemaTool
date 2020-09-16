@@ -6,22 +6,30 @@ import { Injectable } from '@angular/core';
 export class InfoService {
 
   componentData = [];
+  myLevel = 2;
+
   constructor() { }
 
   receiveDataFromComponent(set: any) {
     this.componentData.push(set);
+    localStorage.setItem('data', JSON.stringify(this.componentData));
   }
 
-  getData(id : string) {
+  getData(id: string) {
     return this.componentData[0].title;
   }
 
-  myLevel = 2;
   increaseLevel(){
    return this.myLevel++;
   }
-  
-  increaseColNumber(temp : number){
+
+  increaseColNumber(temp: number){
+
+  }
+
+  retrieveMyData() {
+    const myData = JSON.parse(localStorage.getItem('data'));
+    return (myData);
 
   }
 }

@@ -37,21 +37,22 @@
       </ion-label>
       <ion-checkbox [disabled]="disableCard" (click)="requiredButton()"></ion-checkbox>
     </ion-item>
-    <ion-row [hidden]="!enableStruct" size="1">
+    <ion-row  size="1">
       <div>
-        <ion-button (click)="addCol()">
+        <ion-button [disabled]="enableStruct" (click)="addCol()">
           <ion-icon name="add-outline"></ion-icon>
         </ion-button>
       </div>
       <div>
-        <ion-button (click)="removeCol()">
+        <ion-button [disabled]="enableStruct" (click)="removeCol()">
           <ion-icon name="remove-sharp"></ion-icon>
         </ion-button>
       </div>
     </ion-row>
     
-    <ion-row *ngIf="enableStruct">
-      
+    <ion-row *ngIf="!enableStruct">
+      <!-- <app-information-card  [step1]="header" [step]="1"></app-information-card> -->
+
       <div *ngFor="let item of addField;let i = index">
 
         <app-information-card  [step1]="header" [step]="i +1"></app-information-card>

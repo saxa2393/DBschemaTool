@@ -8,6 +8,32 @@ import { InfoService } from './../services/info.service';
 })
 export class HomePage {
   constructor() { }
-  schemaName: string;
-  description: string;
+  schemaName = '';
+  description = '';
+  addField = [];
+  enableStruct = false;
+  confirmButton = true;
+
+  addCol() {
+    console.log(this.addField);
+    const x = this.addField.length;
+    const y = this.addField[x - 1] + 1;
+    this.addField.push(y);
+  }
+  removeCol() {
+    this.addField.pop();
+
+  }
+  enableButton() {
+
+    if (this.description === '' || this.schemaName === '') {
+
+      this.enableStruct = false;
+    } else {
+      this.enableStruct = true;
+      this.confirmButton = true;
+
+    }
+  }
+
 }
