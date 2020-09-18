@@ -7,15 +7,19 @@ import { InfoService } from './../services/info.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor() { }
+  constructor(private infoExchange: InfoService) { }
   schemaName = '';
   description = '';
   addField = [];
   enableStruct = false;
   confirmButton = true;
-
+  array1 = [];
+  array2 = [];
+  array3 = [];
+  array4 = [];
+  array5 = [];
+  array6 = [];
   addCol() {
-    console.log(this.addField);
     const x = this.addField.length;
     const y = this.addField[x - 1] + 1;
     this.addField.push(y);
@@ -34,6 +38,45 @@ export class HomePage {
       this.confirmButton = true;
 
     }
+  }
+  createJSONButton() {
+    const x = this.infoExchange.retrieveMyData();
+
+    // console.log(x);
+    x.forEach(element => {
+      const titleLength = (element.title).length;
+      if (titleLength === 1) {
+        this.array1.push(element);
+        console.log(this.array1);
+
+      }
+      else if (titleLength === 2) {
+        this.array2.push(element);
+        console.log(this.array2);
+
+      }
+      else if (titleLength === 3) {
+        this.array3.push(element);
+        console.log(this.array3);
+
+      }
+      else if (titleLength === 4) {
+        this.array4.push(element);
+      }
+    });
+    this.confirm();
+
+  }
+  confirm(){
+    this.array1.forEach(element => {
+      this.array2.forEach(element2 => {
+        if (element.title[0] === element2.title[0]){
+          element.structProperties.push(element2);
+        }
+
+      });
+    });
+    console.log(this.array1);
   }
 
 }

@@ -13,13 +13,10 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild(InformationCardComponent, { static: false }) hello: InformationCardComponent;
-
   @Input() initialStep: number;
   @Input() step1: string;
   @Input() step: number;
-
   @Input() headerToPass: number;
-  // @Input() step2: number;
   buttonToShow = 'Hide';
   hiddenButton = false;
   testArray = [];
@@ -44,13 +41,13 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
   newStruct;
   enaleStruct = false;
   incrementHeader = 0;
+  headerArray = [];
+
   @Output() messageEvent = new EventEmitter();
   ngAfterViewInit(): void {
     const input = document.getElementById('myheader');
     this.incrementHeader = Number(input);
   }
-
-
   hiddenShowButton() {
     if (this.hiddenButton) {
       this.hiddenButton = false;
@@ -78,39 +75,43 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (this.headerToPass) {
       this.header = String(this.headerToPass);
+      // const mystring =   this.header;
+
+      // const usingSplit = mystring.split('.');
+      // console.log(usingSplit);
+      this.headerArray.push(String(this.headerToPass));
     }
     else {
       this.header = this.step1 + '.' + String(this.step);
-
-
+      const mystring = this.header;
+      const usingSplit = mystring.split('.');
+      // console.log(usingSplit);
+      usingSplit.forEach(element => {
+        this.headerArray.push(element);
+      });
+      // this.headerArray.push(this.step1);
+      // this.headerArray.push('.');
+      // this.headerArray.push(String(this.step));
     }
-
-
-
     this.myKey = String(this.step1) + '.' + String(this.step);
-
     this.newStruct = {
-      title: this.myKey,
+      title: this.headerArray,
       name: '',
       description: '',
       dataType: '',
       required: '',
-      structProperties: ''
+      structProperties: []
     };
-
   }
   enableButton() {
 
     if (this.dataTypeIndex1 === -1 || this.description1 === '' || this.entry1 === '') {
-
       this.confirmButton = true;
     } else {
       if (this.dataTypeIndex1 === 6) {
         this.showAddButton = false;
       }
-
       this.confirmButton = false;
-
     }
   }
 
@@ -119,38 +120,30 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
     if (this.dataTypeIndex1 === 6 || this.dataTypeIndex1 > 7) {
       this.dataTypeIndex1 = 6;
       this.newStruct = {
-        title: this.header,
+        title: this.headerArray,
         name: this.entry1,
         description: this.description1,
         dataType: this.dataTypeIndex1,
         required: this.isChecked,
-        structProperties: this.myStruct
-
+        structProperties: []
       };
-      this.infoExchange.receiveDataFromComponent(this.newStruct);
-      console.log(this.newStruct);
       this.enableStruct = false;
-
+      this.infoExchange.receiveDataFromComponent(this.newStruct);
     }
     else {
       this.newStruct = {
-        title: this.header,
+        title: this.headerArray,
         name: this.entry1,
         description: this.description1,
         dataType: this.dataTypeIndex1,
-        required: this.isChecked,
-        structProperties: this.myStruct
-
+        required: this.isChecked
       };
-      console.log(this.newStruct);
       this.infoExchange.receiveDataFromComponent(this.newStruct);
-
     }
     this.disableCard = true;
     this.confirmButton = true;
     this.numberOfCards = 0;
-    let x = this.infoExchange.retrieveMyData();
-    console.log(x);
+
   }
 
   requiredButton() {
@@ -169,5 +162,4 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
     this.numberOfCards = 0;
     this.dataTypeIndex1 = -1;
   }
-
 }

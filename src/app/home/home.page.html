@@ -7,13 +7,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div>
+    <ion-button (click)="createJSONButton()">
+      <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
   <ion-item>
-    <ion-input placeholder="Enter the Schema Name" type="text" [(ngModel)]="schemaName" (ngModelChange)="enableButton()"></ion-input>
+    <ion-input placeholder="Enter the Schema Name" type="text" [(ngModel)]="schemaName"
+      (ngModelChange)="enableButton()"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description" (ngModelChange)="enableButton()"></ion-input>
+    <ion-input pattern="" placeholder="Description" type="text" [(ngModel)]="description"
+      (ngModelChange)="enableButton()"></ion-input>
   </ion-item>
-  <ion-row  size="1">
+  <ion-row size="1">
     <div>
       <ion-button [disabled]="!enableStruct" (click)="addCol()">
         <ion-icon name="add-outline"></ion-icon>
@@ -30,9 +37,9 @@
 
     <div *ngFor="let item of addField;let i = index">
 
-      <app-information-card  [headerToPass]="i +1" [step]="i +1"></app-information-card>
+      <app-information-card [headerToPass]="i +1" [step]="i +1"></app-information-card>
     </div>
   </ion-row>
   <!-- <app-information-card [headerToPass]="1"></app-information-card> -->
-  
+
 </ion-content>
