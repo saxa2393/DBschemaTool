@@ -8,9 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <div>
-    <!-- <a target="_blank" href="{{uri}}">pdf</a>  -->
-
-    <ion-button (click)="createJSONButton()">
+    <ion-button (click)="presentAlertConfirm()">
       <ion-label>Confirm when your DB schema is ready</ion-label>
       <ion-icon name="checkmark-done-circle-outline"></ion-icon>
     </ion-button>
@@ -36,13 +34,8 @@
     </div>
   </ion-row>
   <ion-row *ngIf="enableStruct">
-    <!-- <app-information-card  [step1]="header" [step]="1"></app-information-card> -->
-
     <div *ngFor="let item of addField;let i = index">
-
       <app-information-card [headerToPass]="i +1" [step]="i +1"></app-information-card>
     </div>
   </ion-row>
-  <!-- <app-information-card [headerToPass]="1"></app-information-card> -->
-
 </ion-content>
