@@ -1,7 +1,7 @@
-import { InformationCardComponent } from './../information-card/information-card.component';
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+// import { InformationCardComponent } from './../information-card/information-card.component';
+import { Component} from '@angular/core';
 import { InfoService } from './../services/info.service';
-// import { File } from '@ionic-native/file/ngx';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +9,7 @@ import { InfoService } from './../services/info.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  // , public file: File
-  constructor(private infoExchange: InfoService) { }
+  constructor(private infoExchange: InfoService, private alertController: AlertController) { }
   schemaName = '';
   description = '';
   addField = [];
@@ -45,7 +44,7 @@ export class HomePage {
   createJSONButton() {
     const x = this.infoExchange.retrieveMyData();
 
-    // console.log(x);
+    // for every depth level insert the element in the corresponsive array.
     x.forEach(element => {
       const titleLength = (element.title).length;
       if (titleLength === 1) {
@@ -70,16 +69,16 @@ export class HomePage {
     this.confirm();
 
   }
-  uri;
   confirm() {
-    // the number of the array (ex: 5 , 6) indicates the depth in 
+    // the number of the array (ex: 5 , 6) indicates the depth in which the search start
+    // At the moment the app can handle up to to 6 element depth.
+    // Example : 1.2.1.1.1.1
     this.array5.forEach(element => {
       this.array6.forEach(element2 => {
         if (element.title[0] === element2.title[0] && element.title[1] === element2.title[1]
           && element.title[2] === element2.title[2] && element.title[3] === element2.title[3] && element.title[4] === element2.title[4]) {
-          // element.structProperties.push(element2);
+          // I want to exclude the title field from the final JSON
           const { title, ...rest } = element2;
-
           element.structProperties.push(rest);
         }
 
@@ -102,7 +101,6 @@ export class HomePage {
         if (element.title[0] === element2.title[0] && element.title[1] === element2.title[1] && element.title[2] === element2.title[2]) {
           // element.structProperties.push(element2);
           const { title, ...rest } = element2;
-
           element.structProperties.push(rest);
         }
 
@@ -113,7 +111,6 @@ export class HomePage {
         if (element.title[0] === element2.title[0] && element.title[1] === element2.title[1]) {
           // element.structProperties.push(element2);
           const { title, ...rest } = element2;
-
           element.structProperties.push(rest);
         }
 
@@ -123,23 +120,18 @@ export class HomePage {
       this.array2.forEach(element2 => {
         if (element.title[0] === element2.title[0]) {
           // tslint:disable-next-line: no-shadowed-variable
+          // I want to exclude the title field from the final JSON
           const { title, ...rest } = element2;
-
           element.structProperties.push(rest);
         }
 
       });
 
     });
-    // console.log(this.array1);
 
 
-    // #2 Converting the object to JSON...
-
-    // const json = JSON.stringify(this.array1);
-
-    // console.log(json);
     this.array1.forEach(element => {
+      // I want to exclude the title field from the final JSON
       delete element.title;
 
     });
@@ -151,10 +143,37 @@ export class HomePage {
         properties: this.array1
       }
     };
-    const json1 = JSON.stringify(efactorySchema);
-    // this.uri = "data:application/json;charset=UTF-8," + encodeURIComponent(json);
 
+    // #2 Converting the object to JSON...
+    const json1 = JSON.stringify(efactorySchema);
     console.log(json1);
   }
+
+  // alert to confirm the DB schema is finished
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      cssClass: 'alertCancel',
+      message: ' <strong>Are you sure you want to submit your JSON?</strong>',
+      buttons: [
+        {
+          text: 'YES',
+          cssClass: 'yesButton',
+          handler: () => {
+            this.createJSONButton();
+          }
+        },
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'noButton',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 
 }

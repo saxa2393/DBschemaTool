@@ -52,17 +52,14 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
     if (this.hiddenButton) {
       this.hiddenButton = false;
       this.buttonToShow = 'Hide';
-
     }
     else {
       this.hiddenButton = true;
       this.buttonToShow = 'Show';
-
     }
   }
 
   addCol() {
-    console.log(this.addField);
     const x = this.addField.length;
     const y = this.addField[x - 1] + 1;
     this.addField.push(y);
@@ -75,23 +72,15 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (this.headerToPass) {
       this.header = String(this.headerToPass);
-      // const mystring =   this.header;
-
-      // const usingSplit = mystring.split('.');
-      // console.log(usingSplit);
       this.headerArray.push(String(this.headerToPass));
     }
     else {
       this.header = this.step1 + '.' + String(this.step);
       const mystring = this.header;
       const usingSplit = mystring.split('.');
-      // console.log(usingSplit);
       usingSplit.forEach(element => {
         this.headerArray.push(element);
       });
-      // this.headerArray.push(this.step1);
-      // this.headerArray.push('.');
-      // this.headerArray.push(String(this.step));
     }
     this.myKey = String(this.step1) + '.' + String(this.step);
     this.newStruct = {
