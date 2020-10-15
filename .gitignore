@@ -30,3 +30,4 @@ npm-debug.log*
 /plugins
 /www
 *.json
+DBschemaTool_server/db.config.js
