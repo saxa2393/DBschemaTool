@@ -1,8 +1,8 @@
-// import { InformationCardComponent } from './../information-card/information-card.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InfoService } from './../services/info.service';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,8 @@ export class HomePage {
   constructor(
     private infoExchange: InfoService,
     private alertController: AlertController,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
   schemaName = '';
   description = '';
@@ -26,14 +27,18 @@ export class HomePage {
   array4 = [];
   array5 = [];
   array6 = [];
+
+  // assistant function for add button, to add column for every new card element
   addCol() {
     const x = this.addField.length;
     const y = this.addField[x - 1] + 1;
     this.addField.push(y);
   }
+  // assistant function for remove button, to remove column
   removeCol() {
     this.addField.pop();
   }
+  // function to enable button "Confirm when your DB schema is ready"
   enableButton() {
     if (this.description === '' || this.schemaName === '') {
       this.enableStruct = false;
@@ -42,9 +47,9 @@ export class HomePage {
       this.confirmButton = true;
     }
   }
+
   createJSONButton() {
     const x = this.infoExchange.retrieveMyData();
-
     // for every depth level insert the element in the corresponsive array.
     x.forEach((element) => {
       const titleLength = element.title.length;
@@ -62,21 +67,22 @@ export class HomePage {
         this.array6.push(element);
       }
     });
-
     const t = this.confirm();
-    console.log("test : "+ t)
-    const jsonForDB  = JSON.parse(t);
+    const jsonForDB = JSON.parse(t);
     this.http
       .post('http://localhost:8080/api/tutorials/create', jsonForDB)
       .subscribe(
         (data) => {
           console.log('post Request is successful ', data);
+          this.infoExchange.receiveDataFromComponent([]);
+          this.refresh();
         },
 
         (error) => {
           console.log('Error', error);
         }
       );
+
   }
   confirm() {
     // the number of the array (ex: 5 , 6) indicates the depth in which the search start
@@ -163,9 +169,11 @@ export class HomePage {
 
     // #2 Converting the object to JSON...
     const json1 = JSON.stringify(efactorySchema);
-    return (json1);
+    return json1;
   }
-
+  refresh(): void {
+    window.location.reload();
+  }
   // alert to confirm the DB schema is finished
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
@@ -176,6 +184,7 @@ export class HomePage {
           text: 'YES',
           cssClass: 'yesButton',
           handler: () => {
+            this.router.navigate(['/home']);
             this.createJSONButton();
           },
         },

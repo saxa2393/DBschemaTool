@@ -7,6 +7,6 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 console.log(db.url)
-db.listingsAndReviews = require("./tutorial.model")(mongoose);
+db.protos = require("./tutorial.model")(mongoose);
 
 module.exports = db;
