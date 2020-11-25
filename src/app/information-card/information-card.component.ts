@@ -92,7 +92,10 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
       structProperties: []
     };
   }
-  enableButton() {
+
+  // Rewuirements for confirm button to be enabled :
+  // Fill name , description and data type fields
+  enableConfirmButton() {
 
     if (this.dataTypeIndex1 === -1 || this.description1 === '' || this.entry1 === '') {
       this.confirmButton = true;
@@ -104,7 +107,7 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  confirmAll() {
+  confirButton() {
 
     if (this.dataTypeIndex1 === 6 || this.dataTypeIndex1 > 7) {
       this.dataTypeIndex1 = 6;
@@ -135,6 +138,7 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
 
   }
 
+  // Fill the required field in the card
   requiredButton() {
     if (this.isChecked) {
       this.isChecked = false;
@@ -144,11 +148,12 @@ export class InformationCardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  createCards(cards: number) {
-    for (let i = 1; i <= cards; i++) {
-      this.numberOfFields.push(i);
-    }
-    this.numberOfCards = 0;
-    this.dataTypeIndex1 = -1;
-  }
+
+  // createCards(cards: number) {
+  //   for (let i = 1; i <= cards; i++) {
+  //     this.numberOfFields.push(i);
+  //   }
+  //   this.numberOfCards = 0;
+  //   this.dataTypeIndex1 = -1;
+  // }
 }
